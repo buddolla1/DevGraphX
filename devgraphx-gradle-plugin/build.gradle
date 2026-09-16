@@ -1,0 +1,23 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation project(':devgraphx-core')
+
+    testImplementation gradleTestKit()
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+gradlePlugin {
+    plugins {
+        devGraphX {
+            id = 'com.devgraphx'
+            implementationClass = 'com.devgraphx.gradle.DevGraphXPlugin'
+            displayName = 'DevGraphX'
+            description = 'Generates a DevGraphX code graph for Java Gradle projects.'
+        }
+    }
+}

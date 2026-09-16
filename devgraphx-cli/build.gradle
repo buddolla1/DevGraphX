@@ -1,0 +1,24 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':devgraphx-core')
+}
+
+application {
+    mainClass = 'com.devgraphx.core.DevGraphXCli'
+}
+
+tasks.named('jar') {
+    archiveBaseName = 'devgraphx'
+    archiveVersion = ''
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    dependsOn configurations.runtimeClasspath
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
